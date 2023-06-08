@@ -107,3 +107,37 @@ For Receiving the result and verifying the SGX quote passed, please use this cra
 <a href="https://crates.io/crates/solana_attestation_sdk">https://crates.io/crates/solana_attestation_sdk</a>
 
 To see example output of such a function: See https://explorer.solana.com/tx/FnJ13SxdKmMadsnUg884msNnM76QuJkV8gxj9CEikBYbcJzgS3x1KLBiZzrav3tntJezhfYyn2KqrA7AoLRpf9k?cluster=devnet
+
+
+## Example Function
+
+To see an example function container, refer to: https://github.com/switchboard-xyz/sbv3-function-example
+
+## Adding your function to a cron schedule
+
+For running your function at a regular cadence, use our typescript sdk to attach it to an attestation queue:
+
+``` Typescript
+import {
+  SwitchboardProgram,
+  FunctionAccount,
+  AttestationQueueAccount,
+} from "@switchboard-xyz/solana.js";
+
+// ...
+const functionKeypair = anchor.web3.Keypair.generate();
+const [functionAccount] = await FunctionAccount.create(switchboard, {
+  name: "FUNCTION_NAME",
+  metadata: "FUNCTION_METADATA",
+  schedule: "30 * * * * *", // every 30 seconds
+  container: "switchboardlabs/function-example",
+  version: "v1",
+  mrEnclave: new Uint8Array(0),
+  attestationQueue: new AttestationQueueAccount(
+    switchboard,
+    <QUEUE_PUBKEY>
+  ),
+  keypair: functionKeypair,
+});
+console.log(`Function: ${functionAccount.publicKey.toString()}`);
+```
