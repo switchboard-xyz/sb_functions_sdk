@@ -4,6 +4,7 @@ version = "0.1.0"
 edition = "2021"
 authors = ["DoctorBlocks <mitch@switchboard.xyz>"]
 description = "This crate is the utility sdk for writing Switchboard verifiable functions"
+repository = "https://github.com/switchboard-xyz/sb_functions_sdk/tree/main"
 license = "MIT"
 
 [lib]
