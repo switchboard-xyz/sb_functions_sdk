@@ -101,8 +101,9 @@ async fn main() {
 }
 ```
 
-For Receiving the result and verifying the SGX quote passed, please use this crate on chain:
+## Solana On-chain verification
 
-https://crates.io/crates/solana_attestation_sdk
+For Receiving the result and verifying the SGX quote passed, please use this crate on chain:
+<a href="https://crates.io/crates/solana_attestation_sdk">https://crates.io/crates/solana_attestation_sdk</a>
 
 To see example output of such a function: See https://explorer.solana.com/tx/FnJ13SxdKmMadsnUg884msNnM76QuJkV8gxj9CEikBYbcJzgS3x1KLBiZzrav3tntJezhfYyn2KqrA7AoLRpf9k?cluster=devnet
