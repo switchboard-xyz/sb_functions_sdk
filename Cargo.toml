@@ -3,6 +3,8 @@ name = "sb_functions_sdk"
 version = "0.1.0"
 edition = "2021"
 authors = ["DoctorBlocks <mitch@switchboard.xyz>"]
+description = "This crate is the utility sdk for writing Switchboard verifiable functions"
+license = "MIT"
 
 [lib]
 name = "sb_functions_sdk"
