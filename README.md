@@ -1,4 +1,4 @@
-# sb_functions_sdk
+# Switchboard Functions SDK
 [![crates.io](https://img.shields.io/crates/v/my_library.svg)](https://crates.io/crates/sb_functions_sdk)
 
 
