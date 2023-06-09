@@ -132,7 +132,7 @@ const [functionAccount] = await FunctionAccount.create(switchboard, {
   schedule: "30 * * * * *", // every 30 seconds
   container: "switchboardlabs/function-example",
   version: "v1",
-  mrEnclave: new Uint8Array(0),
+  mrEnclave: new Uint8Array(0), // Leave blank to auto-populate after first run
   attestationQueue: new AttestationQueueAccount(
     switchboard,
     <QUEUE_PUBKEY>
