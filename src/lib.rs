@@ -6,6 +6,7 @@ pub mod instruction;
 pub mod queue;
 pub mod quote;
 pub mod sgx;
+pub mod secrets;
 pub use anchor::*;
 use anchor_lang::prelude::*;
 pub use decimal::*;
@@ -15,6 +16,7 @@ pub use instruction::*;
 pub use queue::*;
 pub use quote::*;
 pub use sgx::*;
+pub use secrets::*;
 use solana_sdk::pubkey;
 
 pub const ATTESTATION_PID: Pubkey = pubkey!("2No5FVKPAAYqytpkEoq93tVh33fo4p6DgAnm4S6oZHo7");
