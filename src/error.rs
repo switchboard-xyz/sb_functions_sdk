@@ -5,4 +5,8 @@ pub enum Err {
     SgxWriteError,
     AnchorParseError,
     VerifierMissing,
+    KeyParseError,
+    FetchError,
+    DecryptError,
+    KeygenError,
 }

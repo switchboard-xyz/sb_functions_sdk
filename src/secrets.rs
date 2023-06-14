@@ -17,12 +17,15 @@ pub struct Secrets {
     keys: HashMap<String, String>,
 }
 
-pub async fn fetch_secrets(url: &str) -> Secrets {
+pub async fn fetch_secrets(url: &str) -> std::result::Result<Secrets, Err> {
     let mut os_rng = OsRng::default();
-    let priv_key = RsaPrivateKey::new(&mut os_rng, 2048).unwrap();
-    let pub_key = RsaPublicKey::from(&priv_key).to_public_key_der().unwrap();
+    let priv_key = RsaPrivateKey::new(&mut os_rng, 2048)
+        .map_err(|_| Err::KeygenError)?;
+    let pub_key = RsaPublicKey::from(&priv_key).to_public_key_der()
+        .map_err(|_| Err::KeyParseError)?;
     let pub_key: &[u8] = pub_key.as_ref();
-    let secrets_quote = Sgx::gramine_generate_quote(pub_key).unwrap();
+    let secrets_quote = Sgx::gramine_generate_quote(pub_key)
+        .map_err(|_| Err::SgxError)?;
     let client = reqwest::Client::new();
     let res = client.post(url)
         .json(&json!({
@@ -32,8 +35,10 @@ pub async fn fetch_secrets(url: &str) -> Secrets {
         .send()
         .await
         .unwrap();
-    let ciphertext = res.bytes().await.unwrap();
+    let ciphertext = res.bytes().await.map_err(|_| Err::FetchError)?;
     let padding = PaddingScheme::new_pkcs1v15_encrypt();
-    let secrets: Secrets = serde_json::from_slice(&priv_key.decrypt(padding, &ciphertext).unwrap()).unwrap();
-    secrets
+    let secrets: Secrets = serde_json::from_slice(&priv_key.decrypt(padding, &ciphertext)
+        .map_err(|_| Err::DecryptError)?)
+        .map_err(|_| Err::DecryptError)?;
+    Ok(secrets)
 }
