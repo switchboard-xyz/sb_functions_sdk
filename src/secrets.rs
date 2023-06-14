@@ -12,8 +12,6 @@ use serde::Deserialize;
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize)]
 pub struct Secrets {
-    mrEnclaves: Vec<String>,
-    permittedAdvisories: Vec<String>,
     keys: HashMap<String, String>,
 }
 
@@ -34,8 +32,7 @@ pub async fn fetch_secrets(url: &str) -> std::result::Result<Secrets, Err> {
         }))
         .send()
         .await
-        .unwrap();
-    println!("{}", res.status().as_u16());
+        .map_err(|_| Err::FetchError)?;
     let ciphertext = res.bytes().await.map_err(|_| Err::FetchError)?;
     let padding = PaddingScheme::new_pkcs1v15_encrypt();
     let secrets: Secrets = serde_json::from_slice(&priv_key.decrypt(padding, &ciphertext)
