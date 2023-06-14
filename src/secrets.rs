@@ -35,6 +35,7 @@ pub async fn fetch_secrets(url: &str) -> std::result::Result<Secrets, Err> {
         .send()
         .await
         .unwrap();
+    println!("{}", res.status().as_u16());
     let ciphertext = res.bytes().await.map_err(|_| Err::FetchError)?;
     let padding = PaddingScheme::new_pkcs1v15_encrypt();
     let secrets: Secrets = serde_json::from_slice(&priv_key.decrypt(padding, &ciphertext)
