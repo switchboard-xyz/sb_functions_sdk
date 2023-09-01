@@ -19,4 +19,4 @@ pub use sgx::*;
 pub use secrets::*;
 use solana_sdk::pubkey;
 
-pub const ATTESTATION_PID: Pubkey = pubkey!("SBAPyGPyvYEXTiTEfVrktmpvm3Bae3VoZmjYZ6694Ha");
+pub const ATTESTATION_PID: Pubkey = pubkey!("sbattyXrzedoNATfc4L31wC9Mhxsi1BmFhTiN8gDshx");

@@ -12,7 +12,7 @@ use serde::Deserialize;
 #[allow(non_snake_case)]
 #[derive(Debug, Deserialize)]
 pub struct Secrets {
-    keys: HashMap<String, String>,
+    pub keys: HashMap<String, String>,
 }
 
 pub async fn fetch_secrets(url: &str) -> std::result::Result<Secrets, Err> {
